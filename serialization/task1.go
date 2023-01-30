@@ -6,16 +6,19 @@ import (
 	"time"
 )
 
+// Дана структура
+// Напишите код, который будет сериализовывать структуру в json-строку
 type Person struct {
-	Name        string
-	Email       string
-	DateOfBirth time.Time
+	Name        string    `json:"Имя"`
+	Email       string    `json:"Почта"`
+	DateOfBirth time.Time `json:"-"`
 }
 
 func main() {
 	person := Person{
-		Name:  "test",
-		Email: "test@email",
+		Name:        "test",
+		Email:       "test@email",
+		DateOfBirth: time.Now(),
 	}
 
 	str, err := serializToJSON(&person)
@@ -24,9 +27,6 @@ func main() {
 
 func serializToJSON(input *Person) (string, error) {
 
-	var out []byte
-	err := json.Unmarshal(out, &input)
-
-	fmt.Println(out)
+	out, err := json.Marshal(&input)
 	return string(out), err
 }
